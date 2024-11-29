@@ -1,0 +1,722 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    padding-top: 70px;
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.sidebar, .activity-sidebar, main {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile {
+    text-align: center;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.shortcuts ul {
+    list-style: none;
+    padding: 0;
+}
+
+.shortcuts ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.post {
+    margin-bottom: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    position: relative; /* ใช้ relative เป็นฐานสำหรับตำแหน่งของ post-options */
+}
+
+.post-header h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.post-content h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.post-content p {
+    font-size: 14px;
+    color: #555;
+}
+
+.post-reactions {
+    display: flex;
+    justify-content: space-around;
+    font-size: 14px;
+    color: #555;
+}
+
+.post-reactions span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.post-input-container {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px;
+}
+
+.post-input-box {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.post-title-field, .post-input-field {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 14px;
+    padding: 8px 0;
+    color: #333;
+}
+
+.post-title-field::placeholder, .post-input-field::placeholder {
+    color: #aaa;
+}
+
+.post-input-options {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-options {
+    display: flex; /* ใช้ Flexbox เพื่อจัดเรียงปุ่มในแนวนอน */
+    gap: 10px; /* ระยะห่างระหว่างปุ่ม */
+    justify-content: flex-end; /* จัดให้อยู่ด้านขวา */
+    align-items: center; /* จัดให้อยู่กึ่งกลางในแนวตั้ง */
+}
+
+.post-option:hover {
+    background-color: #0056b3;
+}
+}
+
+/* กำหนดตำแหน่งปุ่ม post-options */
+.post-options {
+    position: absolute; /* ปุ่มจะลอยขึ้นมาในพื้นที่ของ post-header */
+    top: 0; /* ชิดขอบบนของ post-header */
+    right: 0; /* ชิดขอบขวาของ post-header */
+    cursor: pointer; /* เปลี่ยนเป็นรูปมือเมื่อชี้ */
+    font-size: 16px; /* ขนาดของตัวอักษรหรือไอคอน */
+    padding: 5px; /* เพิ่ม padding เล็กน้อย */
+    background-color: transparent; /* พื้นหลังโปร่งใส */
+    border: none; /* ลบขอบ */
+    color: #555; /* สีของปุ่ม */
+    transition: color 0.3s ease; /* เพิ่มเอฟเฟกต์เมื่อชี้ */
+}
+
+.post-options:hover {
+    color: #007bff; /* เปลี่ยนสีเมื่อ hover */
+}
+
+.post-options-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: none; /* ซ่อนเริ่มต้น */
+    z-index: 10;
+    padding: 10px 0;
+    min-width: 100px;
+  }
+  
+  .post-options-menu .post-option-item {
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    color: #333;
+  }
+  
+  .post-options-menu .post-option-item:hover {
+    background: #f5f5f5;
+  }
+
+  /* Centering the comments container */
+.comments-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    padding: 20px;
+    max-width: 800px; /* Limit the width of the comments section */
+    margin: 0 auto; /* Center the container horizontally */
+  }
+  
+  .comment {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment-user {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .comment-content {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .back-link:hover {
+    background-color: #0056b3;
+    transition: background-color 0.3s;
+  }
+
+  /* ช่องสำหรับเขียนความคิดเห็น */
+.comment-input-container {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.comment-input-field {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 14px;
+    padding: 10px;
+    color: #333;
+}
+
+.comment-submit {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+  
+.suggested ul {
+    list-style: none;
+    padding: 0;
+}
+
+.suggested ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.profile-link:hover {
+    text-decoration: underline;
+}
+
+.btn-follow {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-follow:hover {
+    background-color: #0056b3;
+}
+
+
+ul {
+    list-style: none; /* ลบจุดหน้ารายการ */
+    padding: 0; /* ลบระยะห่างด้านซ้าย */
+    margin: 0; /* ลบระยะห่างด้านบน/ล่าง */
+}
+
+.suggested-item {
+    display: flex; /* ใช้ flexbox จัดเรียงแนวนอน */
+    align-items: center; /* จัดให้อยู่ในแนวเดียวกัน */
+    gap: 10px; /* เพิ่มช่องว่างระหว่างรูปภาพและข้อความ */
+    margin-bottom: 10px; /* เพิ่มระยะห่างระหว่างรายการ */
+}
+
+.suggested-header {
+    display: flex; /* ใช้ flexbox */
+    justify-content: center; /* จัดแนวนอนให้อยู่ตรงกลาง */
+    align-items: center; /* จัดแนวตั้งให้อยู่ตรงกลาง */
+    height: 100%; /* ตรวจสอบให้แน่ใจว่ากล่องมีความสูงที่เหมาะสม */
+    text-align: center; /* สำหรับข้อความหลายบรรทัด */
+}
+
+.suggested-profile-pic {
+    width: 40px; /* กำหนดขนาดรูป */
+    height: 40px;
+    border-radius: 50%; /* ทำให้รูปเป็นวงกลม */
+}
+
+.suggested-text {
+    display: flex;
+    flex-direction: column; /* จัดข้อความให้อยู่ในแนวตั้ง */
+}
+
+.profile-link {
+    font-size: 14px; /* ขนาดของชื่อผู้ใช้ */
+    color: #007bff; /* สีลิงก์ */
+    text-decoration: none; /* ลบขีดเส้นใต้ */
+    font-weight: bold; /* ทำตัวหนา */
+}
+
+.profile-link:hover {
+    text-decoration: underline; /* เพิ่มขีดเส้นใต้เมื่อ hover */
+}
+
+.suggested-text p {
+    margin: 0; /* ลบ margin เพื่อจัดตำแหน่ง */
+    font-size: 12px; /* ขนาดข้อความเล็กลง */
+    color: #555; /* สีข้อความรอง */
+}
+
+.edit-container {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto; /* Center container horizontally */
+}
+
+.edit-container h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 95%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f5f5f5;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    background-color: #fff;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+/* Profile Container */
+.profile-container {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto; /* Center container horizontally */
+    text-align: center;
+  }
+  
+  /* Profile Header */
+  .profile-header {
+    margin-bottom: 20px;
+  }
+  
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .profile-username {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .profile-email {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  /* Profile Actions */
+  .profile-actions .btn {
+    margin: 10px 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+  }
+  
+  .profile-actions .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+  }
+  
+  .profile-actions .btn-danger:hover {
+    background-color: #c82333;
+  }
+  
+  .profile-actions .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+  
+  .profile-actions .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Profile Stats */
+  .profile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .stat-item {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .stat-item strong {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* Container for Create and Recent Posts */
+.edit-container {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto; /* Center container horizontally */
+}
+
+/* Section Title */
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Posts Container */
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Individual Post */
+.post {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.post-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.post-content {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.post-meta {
+    font-size: 12px;
+    color: #777;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 95%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f5f5f5;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    background-color: #fff;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* All Posts Section */
+.all-posts-container {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .all-post {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .all-post-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .all-post-content {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .all-post-meta {
+    font-size: 12px;
+    color: #777;
+  }
+
+  .edit-container {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .comments-container {
+    margin-top: 20px;
+  }
+  
+  .comment {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment-user {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .comment-content {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-control {
+    width: 95%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .form-actions {
+    text-align: right;
+  }
+
+  

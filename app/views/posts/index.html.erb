@@ -1,0 +1,27 @@
+<div class="edit-container">
+  <h2 class="section-title">Recent Posts</h2>
+
+  <div class="posts-container">
+    <% @posts.each do |post| %>
+      <div class="post">
+        <h3 class="post-title"><%= post.title %></h3>
+        <p class="post-content"><%= post.content %></p>
+        <small class="post-meta">Posted by <%= post.user.name %> at <%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></small>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="edit-container">
+  <h2 class="section-title">All Posts</h2>
+
+  <div class="all-posts-container">
+    <% @all_posts.each do |post| %>
+      <div class="all-post">
+        <h3 class="all-post-title"><%= post.title %></h3>
+        <p class="all-post-content"><%= post.content %></p>
+        <small class="all-post-meta">Posted by <%= post.user.username %> at <%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></small>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Left Section -->
+    <div class="left-section">
+    <h2>THE WORLD IS CHANGING</h2>
+      <h1>CONNECT WITH <br> PEOPLE AROUND <br> THE WORLD.</h1>
+      <p>Don’t have an account?</p>
+      <%= link_to "Create account →", new_user_registration_path, class: "create-account-link" %>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-section">
+      <div class="login-box">
+        <h3>Login to your account</h3>
+        
+        <!-- Devise Login Form -->
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="input-group">
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "youremail@example.com" %>
+          </div>
+
+          <div class="input-group">
+            <%= f.label :password %>
+            <%= f.password_field :password, autocomplete: "current-password", placeholder: "••••••••" %>
+          </div>
+
+          <div class="options">
+            <label>
+              <%= f.check_box :remember_me %> Remember me
+            </label>
+            <%= link_to "Forgot your password?", new_user_password_path, class: "forgot-password-link" %>
+          </div>
+
+          <div>
+            <%= f.submit "Log In", class: "form-login-button" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

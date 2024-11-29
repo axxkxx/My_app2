@@ -1,0 +1,39 @@
+<div class="profile-container">
+  <div class="profile-header">
+  <img src="<%= asset_path('default_profile_picture.png') %>" alt="Profile Picture" class="profile-pic">
+    <h1><%= @user.username %></h1>
+    <p>@<%= @user.username %></p>
+  </div>
+
+  <div class="profile-stats">
+    <div><strong><%= @user.posts.count %></strong><span> Posts</span></div>
+    <div><strong>0</strong><span> Followers</span></div>
+    <div><strong>0</strong><span> Following</span></div>
+  </div>
+
+<div class="user-posts">
+  <h3><%= @user.username %>'s Posts</h3>
+  <% if @user.posts.any? %>
+    <% @user.posts.each do |post| %>
+      <div class="post">
+        <div class="post-header">
+          <h4><%= post.user.username %></h4>
+          <small><%= time_ago_in_words(post.created_at) %> ago</small>
+          
+        </div>
+        <div class="post-content">
+        <h3><%= post.title %></h3>
+        <p><%= post.content %></p>
+      </div>
+
+        <div class="post-reactions">
+          <span><i class="icon-heart"></i> <%= post.likes.count %> Likes</span>
+          <span><i class="icon-comment"></i> 
+          <%= link_to "#{post.comments.count} Comments", post_comments_path(post) %>
+          </span>        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>This user has no posts yet.</p>
+  <% end %>
+</div>
